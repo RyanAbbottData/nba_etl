@@ -14,8 +14,14 @@ if project_root not in sys.path:
 
 from utils.previous_mvps import nba_mvp_list
 from utils.models import save_model
+from utils.normalization import get_stats_normalized_by_year
 
-df_fit = pd.read_csv("../data/player_season_data_prepared.csv", encoding='utf-8')
+stats = pd.read_csv("../data/player_season_data_prepared.csv")[['PLAYER_NAME', 'season_end_year', "GP_PCT",  "W_PCT", "FG_PCT", "FG3_PCT", "FT_PCT", "REB/G", "AST/G", "TOV/G", "STL/G", "BLK/G", "PLUS_MINUS", "DD2_rate", "TD3_rate", "PTS/G"]]
+
+PLAYER_COLUMN = 'PLAYER_NAME'
+YEAR_COLUMN = 'season_end_year'
+
+df_fit = get_stats_normalized_by_year(df=stats, columns_to_skip=[PLAYER_COLUMN, YEAR_COLUMN])
 
 mvp_indices = []
 for mvp in nba_mvp_list:
@@ -28,7 +34,7 @@ for mvp in nba_mvp_list:
 df_fit['is_mvp'] = 0
 df_fit['is_mvp'].iloc[mvp_indices] = 1
 
-x_columns = ["GP", "GP_PCT",  "W_PCT", "FG_PCT", "FG3_PCT", "FT_PCT", "REB/G", "AST/G", "TOV/G", "STL/G", "BLK/G", "PLUS_MINUS", "DD2_rate", "TD3_rate", "PTS/G"]
+x_columns = ["GP_PCT",  "W_PCT", "FG_PCT", "FG3_PCT", "FT_PCT", "REB/G", "AST/G", "TOV/G", "STL/G", "BLK/G", "PLUS_MINUS", "DD2_rate", "TD3_rate", "PTS/G"]
 y_column = "is_mvp"
 
 x = df_fit[x_columns]

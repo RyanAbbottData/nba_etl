@@ -20,17 +20,36 @@
     </style>
 </head>
 <body>
-    <h2>CSV Data Table</h2>
+    <h2>Player Data Table</h2>
     <table>
         <thead>
             <tr>
-                {% for column in data[0].keys() %}
+                {% for column in player_data[0].keys() %}
                 <th>{{ column }}</th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% for row in data %}
+            {% for row in player_data %}
+            <tr>
+                {% for value in row.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Team Data Table</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for column in team_data[0].keys() %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in team_data %}
             <tr>
                 {% for value in row.values() %}
                 <td>{{ value }}</td>
