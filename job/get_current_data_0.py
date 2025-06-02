@@ -12,6 +12,9 @@ if project_root not in sys.path:
 from utils.formats import get_seasons_in_correct_format
 from utils.previous_mvps import nba_mvp_list
 
+# def write_to_sql(data_to_write):
+
+
 
 
 def get_current_data(type):
